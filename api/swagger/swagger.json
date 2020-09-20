@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Movie",
+    "version": "0.0.1",
+    "description": "Movie API",
+    "contact": {
+      "name": "Tech",
+      "url": "https://production.com",
+      "email": "akshat@production.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "local_server"
+    },
+    {
+      "url": "https://production.com/api",
+      "description": "prod_server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "movie",
+      "description": "Everything about movies"
+    }
+  ],
+  "paths": {
+    "/v1/movie/create": {
+      "post": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get movie by its id.",
+        "operationId": "V1CreateMovieAction",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/V1CreateMovieRequestBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Movie found and returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1CreateMovieResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/movie/update": {
+      "post": {
+        "tags": [
+          "movie"
+        ],
+        "description": "Get movie by its id.",
+        "operationId": "V1UpdateMovieAction",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/V1CreateMovieRequestBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Movie found and returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1CreateMovieResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "V1CreateMovieResponse": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          }
+        }
+      },
+      "V1CreateMovieRequestBody":{
+            "required": [
+              "data"
+            ],
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/MovieData"  
+              }
+            },
+            "example": {
+              "data": {
+                "director": "Akshat",
+                "yearReleased": 2020,
+                "movieName": "MRK"
+              }
+            }
+      },
+      "MovieData": {
+        "required": [
+          "director",
+          "yearReleased",
+          "movieName"
+        ],
+        "type": "object",
+        "properties": {
+          "director": {
+            "type": "string"
+          },
+          "yearReleased": {
+            "type": "number"
+          },
+          "movieName": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "V1CreateMovieRequestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/V1CreateMovieRequestBody"
+            }
+          }
+        }
+      }
+    }
+  }
+}
