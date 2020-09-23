@@ -8,13 +8,18 @@
     "start": "next start",
     "lint": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "gen:swagger-type": "npx swagger-typescript-api -p swagger/swagger.json -o ./swagger/types"
+    "gen:swagger-type": "npx swagger-typescript-api -p swagger/swagger.json -o ./swagger/types",
+    "prisma:studio": "npx prisma studio",
+    "prisma:introspect": "npx prisma introspect",
+    "remove:unused-react": "npx react-codemod update-react-imports"
   },
   "dependencies": {
     "@prisma/client": "2.7.1",
+    "@shantity/api-sdk": "ssh://git@github.com/shrmaky/api-sdk#1.1",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "swr": "^0.3.3",
     "ts-node": "^9.0.0"
   },
   "devDependencies": {

@@ -8,14 +8,14 @@ export interface definitions {
   Category: { id?: number; name?: string };
   Pet: {
     id?: number;
-    category?: definitions["Category"];
+    category?: definitions['Category'];
     name: string;
     photoUrls: string[];
-    tags?: definitions["Tag"][];
+    tags?: definitions['Tag'][];
     /**
      * pet status in the store
      */
-    status?: "available" | "pending" | "sold";
+    status?: 'available' | 'pending' | 'sold';
   };
   Tag: { id?: number; name?: string };
   Order: {
@@ -26,7 +26,7 @@ export interface definitions {
     /**
      * Order Status
      */
-    status?: "placed" | "approved" | "delivered";
+    status?: 'placed' | 'approved' | 'delivered';
     complete?: boolean;
   };
   User: {

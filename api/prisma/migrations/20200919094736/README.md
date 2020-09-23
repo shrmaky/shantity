@@ -47,5 +47,3 @@ migration 20200919094316-added-hotel..20200919094736
    compound_id          String    @unique
    user_id              Int
 ```
-
-

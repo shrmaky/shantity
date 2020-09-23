@@ -24,7 +24,7 @@ export interface MovieData {
   movieName: string;
 }
 
-export type RequestParams = Omit<RequestInit, "body" | "method"> & {
+export type RequestParams = Omit<RequestInit, 'body' | 'method'> & {
   secure?: boolean;
 };
 
@@ -39,20 +39,26 @@ enum BodyType {
 }
 
 class HttpClient<SecurityDataType> {
-  public baseUrl: string = "http://localhost:3000/api";
+  public baseUrl: string = 'http://localhost:3000/api';
   private securityData: SecurityDataType = null as any;
-  private securityWorker: ApiConfig<SecurityDataType>["securityWorker"] = (() => {}) as any;
+  private securityWorker: ApiConfig<
+    SecurityDataType
+  >['securityWorker'] = (() => {}) as any;
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
   };
 
-  constructor({ baseUrl, baseApiParams, securityWorker }: ApiConfig<SecurityDataType> = {}) {
+  constructor({
+    baseUrl,
+    baseApiParams,
+    securityWorker,
+  }: ApiConfig<SecurityDataType> = {}) {
     this.baseUrl = baseUrl || this.baseUrl;
     this.baseApiParams = baseApiParams || this.baseApiParams;
     this.securityWorker = securityWorker || this.securityWorker;
@@ -66,7 +72,10 @@ class HttpClient<SecurityDataType> {
     [BodyType.Json]: JSON.stringify,
   };
 
-  private mergeRequestOptions(params: RequestParams, securityParams?: RequestParams): RequestParams {
+  private mergeRequestOptions(
+    params: RequestParams,
+    securityParams?: RequestParams,
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params,
@@ -79,7 +88,9 @@ class HttpClient<SecurityDataType> {
     };
   }
 
-  private safeParseResponse = <T = any, E = any>(response: Response): Promise<T> =>
+  private safeParseResponse = <T = any, E = any>(
+    response: Response,
+  ): Promise<T> =>
     response
       .json()
       .then((data) => data)
@@ -95,7 +106,10 @@ class HttpClient<SecurityDataType> {
   ): Promise<T> =>
     fetch(`${this.baseUrl}${path}`, {
       // @ts-ignore
-      ...this.mergeRequestOptions(params, (secureByDefault || secure) && this.securityWorker(this.securityData)),
+      ...this.mergeRequestOptions(
+        params,
+        (secureByDefault || secure) && this.securityWorker(this.securityData),
+      ),
       method,
       body: body ? this.bodyFormatters[bodyType || BodyType.Json](body) : null,
     }).then(async (response) => {
@@ -119,8 +133,16 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @request POST:/v1/movie/create
      * @description Get shipment by its id.
      */
-    v1CreateMovieAction: (data: V1CreateMovieRequestBody, params?: RequestParams) =>
-      this.request<V1CreateMovieResponse, any>(`/v1/movie/create`, "POST", params, data),
+    v1CreateMovieAction: (
+      data: V1CreateMovieRequestBody,
+      params?: RequestParams,
+    ) =>
+      this.request<V1CreateMovieResponse, any>(
+        `/v1/movie/create`,
+        'POST',
+        params,
+        data,
+      ),
 
     /**
      * @tags movie
@@ -128,7 +150,15 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
      * @request POST:/v1/movie/update
      * @description Get shipment by its id.
      */
-    v1UpdateMovieAction: (data: V1CreateMovieRequestBody, params?: RequestParams) =>
-      this.request<V1CreateMovieResponse, any>(`/v1/movie/update`, "POST", params, data),
+    v1UpdateMovieAction: (
+      data: V1CreateMovieRequestBody,
+      params?: RequestParams,
+    ) =>
+      this.request<V1CreateMovieResponse, any>(
+        `/v1/movie/update`,
+        'POST',
+        params,
+        data,
+      ),
   };
 }

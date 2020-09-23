@@ -84,25 +84,28 @@
           "msg": {
             "type": "string"
           }
+        },
+        "example": {
+          "msg": "Success"
         }
       },
-      "V1CreateMovieRequestBody":{
-            "required": [
-              "data"
-            ],
-            "type": "object",
-            "properties": {
-              "data": {
-                "$ref": "#/components/schemas/MovieData"  
-              }
-            },
-            "example": {
-              "data": {
-                "director": "Akshat",
-                "yearReleased": 2020,
-                "movieName": "MRK"
-              }
-            }
+      "V1CreateMovieRequestBody": {
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MovieData"
+          }
+        },
+        "example": {
+          "data": {
+            "director": "Akshat",
+            "yearReleased": 2020,
+            "movieName": "MRK"
+          }
+        }
       },
       "MovieData": {
         "required": [

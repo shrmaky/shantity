@@ -3,23 +3,63 @@ import { useEffect } from 'react';
 
 import styles from '../styles/Home.module.css';
 
-import {Api} from '../swagger/types/Api';
+//import {Api} from '../swagger/types/Api';
+
+import {
+  Api,
+  V1CreateMovieRequestBody,
+  V1CreateMovieResponse,
+} from '@shantity/api-sdk';
+import useSWR from 'swr';
 
 const api = new Api();
 
-export default function Home() {
+async function fetcherWithApiSdk(url) {
+  return api.v1.v1CreateMovieAction({
+    data: {
+      director: 'AviiiiHopperr',
+      yearReleased: 2000,
+      movieName: 'test',
+    },
+  });
+}
+
+async function fetcherWithoutSDK(url) {
+  const requestBody: V1CreateMovieRequestBody = {
+    data: {
+      director: 'Ishuuu Bhai',
+      yearReleased: 2000,
+      movieName: 'test',
+    },
+  };
+
+  const returnedData: V1CreateMovieResponse = await fetch(
+    'http://localhost:3000/api/v1/movie/create',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    },
+  ).then((res) => res.json());
+
+  return returnedData;
+}
+
+export default function Home(): any {
+  //const { data, error } = useSWR('/api/user', fetcher);
 
   useEffect(() => {
-    api.v1.v1CreateMovieAction({
-      data: {
-        director: 'ishuujeet@20',
-        yearReleased: 2011,
-        movieName: 'AKI THE ROCKSTAR',
-      },
-    });
+    async function test() {
+      const data = await fetcherWithoutSDK('test');
+      console.log(data);
+    }
 
-    console.log('hello');
-  }, [api]);
+    test();
+  }, []);
+
+  //console.log(data);
 
   return (
     <div className={styles.container}>

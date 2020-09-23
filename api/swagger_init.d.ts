@@ -8,7 +8,7 @@ export interface components {
     V1GetMovieActionResponse: {
       errorCode?: string | null;
       errorMsg?: string | null;
-      status?: "Success" | "Failure";
+      status?: 'Success' | 'Failure';
     };
   };
 }

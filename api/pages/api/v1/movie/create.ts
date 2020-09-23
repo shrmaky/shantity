@@ -1,12 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import {
+  MovieData,
+  V1CreateMovieRequestBody,
+  //V1CreateMovieResponse,
+} from '@shantity/api-sdk';
+
 const prisma = new PrismaClient();
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { data }: { data: any } = req.body;
+export default async function (
+  req: NextApiRequest,
+  res: NextApiResponse,
+): Promise<any> {
+  const body: V1CreateMovieRequestBody = req.body;
 
-  const { director, yearReleased, movieName } = data;
+  const { director, yearReleased, movieName }: MovieData = body.data;
 
   try {
     await prisma.movie.create({

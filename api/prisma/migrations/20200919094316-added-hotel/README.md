@@ -149,5 +149,3 @@ migration ..20200919094316-added-hotel
 +  updated_at DateTime @default(now())
 +}
 ```
-
-
